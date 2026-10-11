@@ -1,29 +1,39 @@
+import threading
+
 import numpy as np
-import hashlib
-from typing import List, Tuple
 
-def mock_embed(text: str, dim: int = 1536) -> np.ndarray:
-    hash_digest = hashlib.sha256(text.encode()).digest()
-    np.random.seed(int.from_bytes(hash_digest[:4], 'big'))
-    return np.random.rand(dim).astype('float32')
 
-class MockVectorStore:
-    def __init__(self, dim: int = 1536):
-        self.dim = dim
-        self.documents: List[str] = []
-        self.embeddings: List[np.ndarray] = []
+class VectorStore:
+    """In-memory cosine-similarity search over normalised embeddings."""
 
-    def add_document(self, text: str):
-        emb = mock_embed(text, self.dim)
-        self.documents.append(text)
-        self.embeddings.append(emb)
+    # ponytail: brute-force numpy scan held in process memory; swap for FAISS/pgvector if corpora grow large
+    def __init__(self) -> None:
+        self._lock = threading.Lock()
+        self._texts: list[str] = []
+        self._sources: list[str] = []
+        self._matrix: np.ndarray | None = None
 
-    def search(self, query: str, k: int = 1) -> List[Tuple[str, float]]:
-        query_vec = mock_embed(query, self.dim)
-        sims = [self.cosine_similarity(query_vec, emb) for emb in self.embeddings]
-        sorted_indices = np.argsort(sims)[::-1][:k]
-        return [(self.documents[i], sims[i]) for i in sorted_indices]
+    def __len__(self) -> int:
+        return len(self._texts)
 
-    @staticmethod
-    def cosine_similarity(vec1: np.ndarray, vec2: np.ndarray) -> float:
-        return float(np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2)))
+    def add(self, texts: list[str], embeddings: np.ndarray, source: str) -> None:
+        if len(texts) != len(embeddings):
+            raise ValueError("texts and embeddings length mismatch")
+        normed = _normalise(np.asarray(embeddings, dtype=np.float32))
+        with self._lock:
+            self._matrix = normed if self._matrix is None else np.vstack([self._matrix, normed])
+            self._texts.extend(texts)
+            self._sources.extend([source] * len(texts))
+
+    def search(self, query_vec: np.ndarray, k: int = 3) -> list[tuple[str, str, float]]:
+        with self._lock:
+            if self._matrix is None:
+                return []
+            scores = self._matrix @ _normalise(np.asarray(query_vec, dtype=np.float32).reshape(1, -1))[0]
+            top = np.argsort(scores)[::-1][:k]
+            return [(self._texts[i], self._sources[i], float(scores[i])) for i in top]
+
+
+def _normalise(m: np.ndarray) -> np.ndarray:
+    norms = np.linalg.norm(m, axis=1, keepdims=True)
+    return m / np.where(norms == 0, 1, norms)
