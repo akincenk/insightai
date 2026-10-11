@@ -1,7 +1,0 @@
-fastapi
-uvicorn
-python-multipart
-openai
-faiss-cpu
-python-dotenv
-PyMuPDF
