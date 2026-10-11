@@ -1,6 +1,8 @@
-fastapi>=0.115
-uvicorn>=0.30
-python-multipart>=0.0.9
-PyMuPDF>=1.24.3
-numpy>=1.26
-openai>=1.66
+fastapi==0.143.0
+uvicorn==0.54.0
+python-multipart==0.0.32
+PyMuPDF==1.28.2
+# NumPy 2.5 requires Python 3.12+, so 3.11 gets the last release that supports it.
+numpy==2.4.6; python_version < "3.12"
+numpy==2.5.4; python_version >= "3.12"
+openai==3.28.0
