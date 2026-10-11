@@ -1,4 +1,5 @@
 import os
+from contextlib import asynccontextmanager
 
 import openai
 from fastapi import FastAPI
@@ -7,8 +8,16 @@ from fastapi.responses import JSONResponse
 
 from app.ai_engine import MissingAPIKeyError
 from app.api import router
+from app.auth import check_auth_config
 
-app = FastAPI(title="InsightAI", description="Ask questions about uploaded PDFs.")
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    check_auth_config()
+    yield
+
+
+app = FastAPI(title="InsightAI", description="Ask questions about uploaded PDFs.", lifespan=lifespan)
 app.include_router(router)
 
 origins = [o.strip() for o in os.getenv("ALLOWED_ORIGINS", "").split(",") if o.strip()]

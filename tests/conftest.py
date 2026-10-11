@@ -23,6 +23,8 @@ def make_pdf(*pages: str) -> bytes:
 def no_real_openai(monkeypatch):
     # Guarantee no test can reach the network even if a key is present locally.
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.setenv("API_KEY", "test-key")
+    monkeypatch.delenv("ALLOW_NO_AUTH", raising=False)
     from app import ai_engine
 
     clear_cache = ai_engine.get_client.cache_clear

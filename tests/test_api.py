@@ -8,7 +8,9 @@ from app.main import app
 from app.vector_store import VectorStore
 from tests.conftest import fake_embed, make_pdf
 
-client = TestClient(app)
+API_HEADERS = {"X-API-Key": "test-key"}
+client = TestClient(app, headers=API_HEADERS)
+anon = TestClient(app)
 
 
 @pytest.fixture
@@ -25,8 +27,8 @@ def mocked_openai(monkeypatch):
     return calls
 
 
-def upload(data: bytes, name: str = "doc.pdf"):
-    return client.post("/upload/", files={"file": (name, data, "application/pdf")})
+def upload(data: bytes, name: str = "doc.pdf", c: TestClient = client):
+    return c.post("/upload/", files={"file": (name, data, "application/pdf")})
 
 
 def test_root():
@@ -92,3 +94,48 @@ def test_embed_and_answer_use_v1_client(monkeypatch):
 
     assert ai_engine.embed(["a", "b", "c"]).shape == (3, 2)
     assert "[1] ctx" in ai_engine.answer("q?", ["ctx"])
+
+
+@pytest.mark.parametrize("headers", [{}, {"X-API-Key": "wrong"}])
+def test_write_endpoints_require_api_key(mocked_openai, headers):
+    c = TestClient(app, headers=headers)
+    assert upload(make_pdf("python is a language"), c=c).status_code == 401
+    assert c.post("/query/", json={"query": "x"}).status_code == 401
+    assert len(api.store) == 0
+
+
+def test_health_check_needs_no_key():
+    assert anon.get("/").status_code == 200
+
+
+def test_allow_no_auth_skips_key_check(mocked_openai, monkeypatch):
+    monkeypatch.delenv("API_KEY")
+    monkeypatch.setenv("ALLOW_NO_AUTH", "true")
+    assert upload(make_pdf("python is a language"), c=anon).status_code == 200
+
+
+def test_app_refuses_to_start_without_api_key(monkeypatch):
+    monkeypatch.delenv("API_KEY")
+    with pytest.raises(RuntimeError, match="API_KEY"):
+        with TestClient(app):
+            pass
+    monkeypatch.setenv("ALLOW_NO_AUTH", "true")
+    with TestClient(app) as c:
+        assert c.get("/").status_code == 200
+
+
+def test_upload_rejects_too_many_chunks_before_embedding(mocked_openai, monkeypatch):
+    monkeypatch.setattr(api, "MAX_CHUNKS_PER_UPLOAD", 1)
+    monkeypatch.setattr(ai_engine, "embed", lambda texts: pytest.fail("embed must not be called"))
+    long_text = " ".join(f"w{i}" for i in range(300))
+    resp = upload(make_pdf(*[long_text[i : i + 80] for i in range(0, len(long_text), 80)]))
+    assert resp.status_code == 413
+    assert len(api.store) == 0
+
+
+def test_store_cap_evicts_oldest_document(mocked_openai, monkeypatch):
+    monkeypatch.setattr(api, "store", VectorStore(max_chunks=1))
+    upload(make_pdf("python is a snake"), "old.pdf")
+    upload(make_pdf("coffee is a drink"), "new.pdf")
+    body = client.post("/query/", json={"query": "python snake", "top_k": 10}).json()
+    assert [r["source"] for r in body["results"]] == ["new.pdf"]

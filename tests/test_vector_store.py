@@ -35,3 +35,17 @@ def test_zero_vector_does_not_produce_nan():
 def test_length_mismatch_rejected():
     with pytest.raises(ValueError):
         VectorStore().add(["a", "b"], np.ones((1, 2)), source="a.pdf")
+
+
+def test_max_chunks_evicts_oldest_first():
+    store = VectorStore(max_chunks=3)
+    store.add(["a", "b"], np.eye(2), source="first.pdf")
+    store.add(["c", "d"], np.eye(2), source="second.pdf")
+    assert len(store) == 3
+    texts = {t for t, _, _ in store.search(np.array([1.0, 1.0]), k=10)}
+    assert texts == {"b", "c", "d"}
+
+
+def test_max_chunks_must_be_positive():
+    with pytest.raises(ValueError):
+        VectorStore(max_chunks=0)
