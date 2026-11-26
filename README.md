@@ -16,6 +16,8 @@ A small FastAPI service for asking questions about PDFs: upload documents, then 
 
    The chunks and the question go to the OpenAI Responses API, which must cite every claim as `[1]`, `[2]`. You get back the answer and numbered sources with file name, page and score, so each citation can be checked.
 
+4. Optional: with `RERANK_URL` set, the 20 best candidates are reordered by a cross-encoder (a model that reads the question and each chunk together) before the top `k` go to the answer step. If the reranker fails, the retrieval order is kept and the response says `"reranked": false`.
+
 The default mode was chosen by measurement, not by preference; see [Evaluation](#evaluation).
 
 ## Stack
@@ -77,6 +79,9 @@ Everything is configured through environment variables (see `.env.example`):
 - `MAX_CHUNKS_PER_UPLOAD` (default `200`): larger documents are rejected with `413`.
 - `MAX_STORE_CHUNKS` (default `2000`): total chunks kept in memory; oldest are evicted first.
 - `ALLOWED_ORIGINS`: comma-separated browser origins allowed by CORS. Empty means CORS is off.
+- `RERANK_URL` (optional): a `/v1/rerank` endpoint (llama.cpp `llama-server --reranking`, vLLM, Jina or a Cohere-compatible gateway). Read only from the environment, never from a request.
+- `RERANK_MODEL`, `RERANK_API_KEY` (optional): sent to the reranker when set.
+- `RERANK_CANDIDATES` (default `20`) and `RERANK_TIMEOUT` (default `30` seconds).
 
 ## API
 
@@ -91,7 +96,7 @@ curl -H "X-API-Key: $API_KEY" -F file=@paper.pdf http://127.0.0.1:8000/upload/
 
 Errors: `400` for a non-PDF or corrupt file, `413` if it is too large or has more than `MAX_CHUNKS_PER_UPLOAD` chunks, `422` if there is no extractable text (for example a scanned PDF), `503` if no API key is set, `502` if the OpenAI call fails.
 
-`POST /query/`: JSON body with `query` (1-2000 chars) and `top_k` (1-10, default 3).
+`POST /query/`: JSON body with `query` (1-2000 chars), `top_k` (1-10, default 3), `mode` (`vector`, `keyword` or `hybrid`, default `vector`) and `rerank` (default: on when `RERANK_URL` is set; `true` without a reranker returns `400`).
 
 ```bash
 curl -X POST http://127.0.0.1:8000/query/ \
@@ -126,7 +131,7 @@ The tests never call OpenAI. They build real PDFs in memory with PyMuPDF and swa
 - Authentication is a single shared API key. There are no user accounts and no per-user isolation: everyone with the key shares one index.
 - Eviction is first-in, first-out by chunk, so a document can be partially evicted when the store is full.
 - Scanned (image-only) PDFs are rejected because there is no OCR.
-- Chunking splits on word counts, not on sentence or section boundaries.
+- Chunking splits on word counts, not on sentence or section boundaries, and a chunk does not carry its section's context; the reranker suffers from that most (see Evaluation).
 
 ## Design decisions
 
@@ -165,7 +170,7 @@ Results with two local embedding models through Ollama (2026-11-25). EmbeddingGe
 What the numbers say:
 
 - On this small handbook with clearly separated topics, dense retrieval alone is best with both models, so `vector` is the default.
-- Keyword search finds exact codes but misses paraphrases; equal-weight fusion lets its weaker ranking pull good vector matches down. Hybrid stays available for code-heavy documents (part numbers, error codes, SKUs), where embeddings tend to blur identifiers.
+- Keyword search finds exact codes but misses paraphrases; equal-weight fusion lets its weaker ranking pull good vector matches down.
 - The first hybrid run exposed a real bug: function words counted as keyword hits and pushed the right page out of the top 10. Ignoring them raised keyword MRR from 0.74 to 0.78 and fixed that question.
 - I did not tune weights or questions to make hybrid win; with 30 questions that would only fit the test set.
 
@@ -178,4 +183,34 @@ OPENAI_EMBEDDING_MODEL=all-minilm python -m eval.run
 ```
 
 `python -m eval.run --fake` runs offline with toy vectors; the test suite uses it to check the harness, not to score retrieval.
+
+### Codes, reranking and the answers themselves (2026-11-26)
+
+Three further questions, all measured locally with EmbeddingGemma 2, the `bge-reranker-v2-m3` cross-encoder served by `llama-server --reranking`, and Qwen 3.8 27B writing the answers through Ollama's Responses API.
+
+**Do embeddings blur identifiers?** `python -m eval.run --set codes` uses a second fictional set built for exactly that case: a device manual of 24 near-identical pages that differ mainly in their error codes (`E-4127`, `E-4172`, `E-4217`...), with 24 questions that quote a code and 6 that only describe the symptom.
+
+| Set | Mode | Recall@1 | Recall@3 | Recall@5 | MRR |
+| --- | --- | --- | --- | --- | --- |
+| Codes | keyword | 0.97 | 1.00 | 1.00 | 0.98 |
+| Codes | vector | 0.97 | 0.97 | 1.00 | 0.97 |
+| Codes | **hybrid** | **1.00** | **1.00** | **1.00** | **1.00** |
+| Handbook | vector | 0.90 | 1.00 | 1.00 | 0.94 |
+| Handbook | **vector + rerank** | **0.97** | 0.97 | 0.97 | **0.97** |
+| Codes | vector + rerank | 1.00 | 1.00 | 1.00 | 1.00 |
+
+- I expected dense retrieval to confuse codes that share their digits. It did not: EmbeddingGemma 2 found the right page first 29 times out of 30. Hybrid was the only mode that was perfect, so it is the better choice for identifier-heavy documents, but the gap is one question, not a different league.
+- Reranking put the right page first more often (handbook recall@1 0.90 → 0.97) but pushed one page out of the top 10: "The fridge goods were too warm on arrival" is answered by a page that never says *fridge* or *warm* (it says "if a reading is outside the range", the range being on the page before). The cross-encoder reads each chunk alone, so it lost the context the embedding still had. Prefixing each chunk with its document name did not fix it and cost the codes set one question, so it is not used. That is why reranking is optional and off unless configured.
+
+**Are the answers right, cited and honest?** `python -m eval.answers` asks the 30 handbook questions (each with the facts a correct answer must contain, in [`eval/answers.json`](eval/answers.json)) and 10 questions the handbook does not answer (parental leave, parking, salary day...).
+
+| Pipeline | Correct | Cited | Citations pointing at the right page | Unanswerable: said "could not find" | False "could not find" |
+| --- | --- | --- | --- | --- | --- |
+| **vector, top 3** | **30 / 30** | 30 / 30 | 87% | **10 / 10** | **0 / 30** |
+| vector + rerank, top 3 | 29 / 30 | 30 / 30 | 85% | 10 / 10 | 1 / 30 |
+
+- Every answer was correct and cited, and the model never invented an answer to the 10 questions the documents do not cover; it said it could not find them and named what the excerpts did cover.
+- 13% of citations point at a page other than the one that answers the question. I read all of them: they cite 5 distinct pages, 3 of them the previous page of the same document (for example the cold-chain rule before the excursion procedure) and 2 a related page of another document (protective equipment next to the forklift check, receiving counts next to stock counts). None is a made-up source, but none is the page that holds the answer either.
+- Reranking cost one answer, the same fridge question: with the right page gone, the model correctly said it could not find the answer. A wrong retrieval became an honest "I don't know", not a wrong answer.
+- Grading is lexical (every fact group must appear), so it is lenient where the fact is a plain yes or no; I read those answers by hand. Every answer is in [`eval/results/`](eval/results/).
 
