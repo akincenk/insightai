@@ -12,6 +12,7 @@ EMBED_BATCH_SIZE = 100
 
 INSTRUCTIONS = (
     "Answer the user's question using only the provided document excerpts. "
+    "Cite every claim with the excerpt number in square brackets, for example [1] or [2][3]. "
     "If the excerpts do not contain the answer, say you could not find it in the documents."
 )
 

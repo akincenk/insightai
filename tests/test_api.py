@@ -139,3 +139,14 @@ def test_store_cap_evicts_oldest_document(mocked_openai, monkeypatch):
     upload(make_pdf("coffee is a drink"), "new.pdf")
     body = client.post("/query/", json={"query": "python snake", "top_k": 10}).json()
     assert [r["source"] for r in body["results"]] == ["new.pdf"]
+
+
+def test_query_cites_page_numbers_and_accepts_mode(mocked_openai):
+    body = upload(make_pdf("coffee is a bean drink", "python is a snake and a language"), "two.pdf").json()
+    assert body["pages"] == 2
+    r = client.post("/query/", json={"query": "snake", "top_k": 1}).json()
+    assert r["mode"] == "vector"
+    assert r["results"][0]["page"] == 2 and r["results"][0]["citation"] == 1 and r["results"][0]["source"] == "two.pdf"
+    kw = client.post("/query/", json={"query": "coffee", "top_k": 1, "mode": "keyword"}).json()
+    assert kw["results"][0]["page"] == 1
+    assert client.post("/query/", json={"query": "x", "mode": "fuzzy"}).status_code == 422

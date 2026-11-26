@@ -1,0 +1,50 @@
+{
+  "_note": "Fictional employee handbook of a fictional company (Northwind Logistics). Written for this evaluation; no real data.",
+  "documents": [
+    {"source": "receiving.pdf", "pages": [
+      "Receiving procedure. Every inbound truck is booked through the dock scheduler at least 24 hours ahead. On arrival the driver hands over the bill of lading and the receiver checks the seal number against the advance ship notice before the doors are opened.",
+      "Counting and discrepancies. Each pallet is scanned and counted against the purchase order. When the delivered quantity differs from the advance ship notice by more than two percent, the receiver fills in form RX-17 and the supplier is charged a handling fee.",
+      "Damaged goods. Crushed or wet cartons are photographed, set aside in the quarantine cage and recorded as damaged on receipt. The buyer decides within three working days whether to return them or accept a credit."
+    ]},
+    {"source": "forklift.pdf", "pages": [
+      "Forklift pre-use check. Before the first lift of every shift the operator checks the forks, chains, hydraulic hoses, horn, lights and seat belt, and signs the daily checklist on the truck tablet. A failed item takes the truck out of service.",
+      "Battery charging. Electric trucks are charged only in the ventilated charging bay. Opportunity charging during breaks is allowed above thirty percent charge. Watering the cells is done weekly by maintenance, never by operators.",
+      "Licences. Only staff holding a valid internal licence may drive a forklift. Licences expire after three years and renewal requires a practical test with a certified trainer."
+    ]},
+    {"source": "returns.pdf", "pages": [
+      "Customer returns. Customers may return unused items within 30 days of delivery with the original packaging. The return authorisation number starting with RMA must be written on the outside of the box.",
+      "Restocking. Returned items are inspected within two working days. Items in sellable condition go back to stock; opened electronics are graded B and sold through the outlet channel at a discount."
+    ]},
+    {"source": "it-security.pdf", "pages": [
+      "Passwords and sign-in. Passwords must be at least 14 characters long and are never shared. Multi-factor authentication is mandatory for email, the warehouse management system and remote access.",
+      "Handheld scanners. If a handheld scanner shows error E-42, the device has lost its connection to the warehouse management system; dock it for two minutes to resync before calling the help desk.",
+      "Phishing. Suspicious messages are reported with the report button and never forwarded. The security team answers every report within one working day."
+    ]},
+    {"source": "shipping.pdf", "pages": [
+      "Order cut-off times. Orders released to the floor before 2 p.m. ship the same day. Orders released later ship the next working day. Weekend orders ship on Monday.",
+      "Carriers. Parcels under 30 kilograms go with the parcel carrier; heavier shipments are booked as less-than-truckload freight through the freight desk, which needs the pallet dimensions and weight.",
+      "Hazardous materials. Lithium batteries and aerosols ship only with a dangerous-goods declaration signed by a certified shipper. These goods may never go by air without the safety officer's approval."
+    ]},
+    {"source": "cycle-count.pdf", "pages": [
+      "Cycle counting. Instead of a yearly shutdown count, a few locations are counted every day. Fast-moving A items are counted monthly, B items quarterly and C items twice a year.",
+      "Variances. A count that differs from the system by more than five units or 100 dollars triggers a blind recount by a second person. Only the inventory controller may post the adjustment."
+    ]},
+    {"source": "leave.pdf", "pages": [
+      "Vacation. Full-time staff earn two weeks of paid vacation in their first year and three weeks from the fifth year. Requests are made at least four weeks ahead in the scheduling app.",
+      "Sick days. Employees phone their shift lead before the start of the shift. A doctor's note is only needed after three consecutive sick days."
+    ]},
+    {"source": "safety.pdf", "pages": [
+      "Personal protective equipment. Safety boots and high-visibility vests are required on the warehouse floor at all times. Cut-resistant gloves are required when opening cartons with a blade.",
+      "Incidents and near misses. Every incident or near miss is reported to the shift lead before the end of the shift, even when nobody is hurt. Reports are reviewed every week to remove the cause.",
+      "Emergency exits. Exit routes are marked in green and must stay clear by at least one metre. Fire doors are never wedged open."
+    ]},
+    {"source": "temperature.pdf", "pages": [
+      "Cold chain. Chilled goods must stay between 2 and 8 degrees Celsius from the trailer to the cold room. The probe reading is taken at receipt and logged against the purchase order.",
+      "Excursions. If a reading is outside the range, the pallet is placed on hold with a red tag and the quality team decides within four hours whether it can be released."
+    ]},
+    {"source": "customer-service.pdf", "pages": [
+      "Service levels. Customer emails are answered within one business day and calls within 60 seconds during opening hours. Complaints are acknowledged the same day.",
+      "Escalation. When a customer reports the same problem a second time, the case is escalated to a team lead, who owns it until the customer confirms it is solved."
+    ]}
+  ]
+}

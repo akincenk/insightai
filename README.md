@@ -6,16 +6,23 @@ A small FastAPI service for asking questions about PDFs: upload documents, then 
 
 ## How it works
 
-1. `POST /upload/` checks the file (`.pdf` extension, `%PDF-` header, size limit), extracts its text with PyMuPDF, and splits it into overlapping 200-word chunks.
+1. `POST /upload/` checks the file (`.pdf` extension, `%PDF-` header, size limit), extracts the text of every page with PyMuPDF, and splits each page into overlapping 200-word chunks, so every chunk keeps its page number for citations.
    Documents that would produce more than 200 chunks are rejected before any OpenAI call is made.
 2. Each chunk is embedded with the OpenAI Embeddings API (`text-embedding-3-small` by default) and stored in an in-memory NumPy matrix. The store holds at most 2000 chunks; when it is full, the oldest chunks are evicted first.
-3. `POST /query/` embeds the question, ranks chunks by cosine similarity, and sends the top `k` chunks plus the question to the OpenAI Responses API. You get back the answer and the source chunks with their scores.
+3. `POST /query/` retrieves the top `k` chunks in one of three modes (`mode` in the request body):
+   - `vector` (default): cosine similarity over embeddings.
+   - `keyword`: Okapi BM25 over content words (common words such as *a*, *can*, *the* are ignored; hyphenated codes such as `RX-17` stay one token).
+   - `hybrid`: reciprocal rank fusion of the two.
+
+   The chunks and the question go to the OpenAI Responses API, which must cite every claim as `[1]`, `[2]`. You get back the answer and numbered sources with file name, page and score, so each citation can be checked.
+
+The default mode was chosen by measurement, not by preference; see [Evaluation](#evaluation).
 
 ## Stack
 
 - Python 3.11+, FastAPI, Uvicorn
 - PyMuPDF for PDF text extraction
-- NumPy for vector search (brute-force cosine similarity, no external vector DB)
+- NumPy for vector search (brute-force cosine similarity, no external vector DB) and a small pure-Python BM25 for keyword search
 - OpenAI Python SDK v1 (`OpenAI()` client, `embeddings.create`, `responses.create`)
 - pytest + FastAPI `TestClient`, ruff, GitHub Actions
 
@@ -25,8 +32,9 @@ app/
   auth.py         X-API-Key check
   api.py          /upload/ and /query/ endpoints, upload validation
   pdf_utils.py    text extraction and chunking
-  vector_store.py in-memory cosine-similarity store
+  vector_store.py in-memory store: vector, BM25 keyword and hybrid (RRF) search
   ai_engine.py    OpenAI embeddings and answer generation
+eval/             retrieval evaluation: fictional handbook, 30 questions, recall@k and MRR
 tests/            unit and API tests (OpenAI is always mocked)
 frontend/         optional example React component (see below)
 ```
@@ -138,3 +146,36 @@ The tests never call OpenAI. They build real PDFs in memory with PyMuPDF and swa
 ## License
 
 MIT
+
+## Evaluation
+
+`eval/` holds a fictional employee handbook (10 documents, 25 pages) and 30 questions, each with the page that answers it. Some questions quote exact codes (`form RX-17`, `error E-42`); most are paraphrased ("My handheld cannot reach the stock system"). `python -m eval.run` builds the store, runs every question in every mode and reports recall@1/3/5 and MRR (mean reciprocal rank of the correct page).
+
+Results with two local embedding models through Ollama (2026-11-25). EmbeddingGemma 2 ran as a local bf16 GGUF build (tag `embeddinggemma2-bf16`); all-MiniLM-L6 is the public `all-minilm` tag, so that row can be reproduced exactly:
+
+| Embedding model | Mode | Recall@1 | Recall@3 | Recall@5 | MRR |
+| --- | --- | --- | --- | --- | --- |
+| EmbeddingGemma 2 | keyword | 0.67 | 0.90 | 0.90 | 0.78 |
+| EmbeddingGemma 2 | **vector** | **0.90** | **1.00** | **1.00** | **0.94** |
+| EmbeddingGemma 2 | hybrid | 0.83 | 0.93 | 0.97 | 0.90 |
+| all-MiniLM-L6 | keyword | 0.67 | 0.90 | 0.90 | 0.78 |
+| all-MiniLM-L6 | **vector** | **0.93** | **0.97** | **0.97** | **0.95** |
+| all-MiniLM-L6 | hybrid | 0.90 | 0.93 | 0.93 | 0.92 |
+
+What the numbers say:
+
+- On this small handbook with clearly separated topics, dense retrieval alone is best with both models, so `vector` is the default.
+- Keyword search finds exact codes but misses paraphrases; equal-weight fusion lets its weaker ranking pull good vector matches down. Hybrid stays available for code-heavy documents (part numbers, error codes, SKUs), where embeddings tend to blur identifiers.
+- The first hybrid run exposed a real bug: function words counted as keyword hits and pushed the right page out of the top 10. Ignoring them raised keyword MRR from 0.74 to 0.78 and fixed that question.
+- I did not tune weights or questions to make hybrid win; with 30 questions that would only fit the test set.
+
+Run it yourself, fully local and free with [Ollama](https://ollama.com):
+
+```bash
+ollama pull all-minilm
+OPENAI_BASE_URL=http://127.0.0.1:11434/v1 OPENAI_API_KEY=local \
+OPENAI_EMBEDDING_MODEL=all-minilm python -m eval.run
+```
+
+`python -m eval.run --fake` runs offline with toy vectors; the test suite uses it to check the harness, not to score retrieval.
+
