@@ -59,3 +59,38 @@ def test_common_words_never_count_as_keyword_matches():
     # "can I ... a ... the" must not make every chunk a keyword hit and push the vector winner out
     texts = ["the dock opens at six", "a pallet can be stacked", "customers may return unused items within 30 days"]
     assert bm25_rank("Can I give back a product?", texts) == []
+
+
+def test_the_code_set_is_well_formed_and_runs_offline():
+    import json
+    from pathlib import Path
+
+    from eval.run import evaluate
+
+    here = Path(__file__).parent.parent / "eval"
+    docs = json.loads((here / "corpus_codes.json").read_text())["documents"]
+    pages = {(d["source"], i) for d in docs for i in range(1, len(d["pages"]) + 1)}
+    questions = json.loads((here / "questions_codes.json").read_text())
+    assert len(questions) == 30 and all((q["source"], q["page"]) in pages for q in questions)
+    assert set(evaluate(fake_embed, name="codes")) == {"keyword", "vector", "hybrid"}
+
+
+def test_answer_grading():
+    from eval.answers import abstained, cited, grade
+
+    item = {"source": "a.pdf", "page": 2, "facts": [["rx-17"], ["two percent", "2%"]]}
+    hits = [("x", "b.pdf", 1, 0.9), ("y", "a.pdf", 2, 0.8)]
+    g = grade(item, "Fill in form RX-17 when it differs by 2% [2][1].", hits)
+    assert g["correct"] and g["cited"] and g["gold_citations"] == 1 and g["citations"] == 2 and g["retrieved_gold"]
+    assert not grade(item, "Use form RX-17.", hits)["correct"]
+    assert abstained("I couldn’t find that in the documents.") and not abstained("Wear safety boots [1].")
+    assert cited("a [1] b [2][3]") == [1, 2, 3]
+    assert grade(None, "The documents do not contain this.", hits) == {"abstained": True, "citations": 0}
+
+
+def test_answer_eval_runs_offline():
+    from eval.answers import evaluate
+
+    out = evaluate(fake_embed, lambda q, ctx: "I could not find it in the documents.")
+    assert out["summary"]["abstained_when_unanswerable"] == "10/10"
+    assert out["summary"]["false_abstentions"] == "30/30"

@@ -1,0 +1,388 @@
+{
+ "_note": "Gold facts for the 30 handbook questions (every group must appear, any one alternative per group, case-insensitive) and 10 questions the handbook does not answer.",
+ "answerable": [
+  {
+   "q": "What is form RX-17 used for?",
+   "source": "receiving.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "discrepanc",
+     "differs",
+     "difference"
+    ],
+    [
+     "two percent",
+     "2%",
+     "2 percent"
+    ]
+   ]
+  },
+  {
+   "q": "What does error E-42 on a scanner mean?",
+   "source": "it-security.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "lost its connection",
+     "lost connection",
+     "connection"
+    ],
+    [
+     "dock"
+    ]
+   ]
+  },
+  {
+   "q": "What has to be written on a box that has an RMA number?",
+   "source": "returns.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "rma",
+     "return authori"
+    ]
+   ]
+  },
+  {
+   "q": "What happens to grade B electronics?",
+   "source": "returns.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "outlet"
+    ]
+   ]
+  },
+  {
+   "q": "Who may post an inventory adjustment?",
+   "source": "cycle-count.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "inventory controller"
+    ]
+   ]
+  },
+  {
+   "q": "What is the cut-off time for same-day shipping?",
+   "source": "shipping.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "2 p.m",
+     "2 pm",
+     "2:00",
+     "14:00",
+     "2pm"
+    ]
+   ]
+  },
+  {
+   "q": "How long must passwords be?",
+   "source": "it-security.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "14"
+    ]
+   ]
+  },
+  {
+   "q": "A delivery came in with fewer boxes than the supplier announced. What paperwork do I need?",
+   "source": "receiving.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "rx-17"
+    ]
+   ]
+  },
+  {
+   "q": "My handheld cannot reach the stock system. What should I do?",
+   "source": "it-security.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "dock"
+    ],
+    [
+     "two minutes",
+     "2 minutes"
+    ]
+   ]
+  },
+  {
+   "q": "Can I give back a product I bought three weeks ago?",
+   "source": "returns.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "30 days",
+     "thirty days"
+    ],
+    [
+     "yes",
+     "can",
+     "may"
+    ]
+   ]
+  },
+  {
+   "q": "What do I inspect on a lift truck before I start working?",
+   "source": "forklift.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "forks"
+    ],
+    [
+     "chains"
+    ],
+    [
+     "horn"
+    ]
+   ]
+  },
+  {
+   "q": "Where can I plug in the electric lift trucks to recharge them?",
+   "source": "forklift.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "charging bay"
+    ]
+   ]
+  },
+  {
+   "q": "How often does my permit to drive the lift truck need renewing?",
+   "source": "forklift.pdf",
+   "page": 3,
+   "facts": [
+    [
+     "three years",
+     "3 years"
+    ]
+   ]
+  },
+  {
+   "q": "A box arrived soaked. Where do I put it?",
+   "source": "receiving.pdf",
+   "page": 3,
+   "facts": [
+    [
+     "quarantine"
+    ]
+   ]
+  },
+  {
+   "q": "Do I need an appointment before a lorry arrives at the dock?",
+   "source": "receiving.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "24 hours"
+    ]
+   ]
+  },
+  {
+   "q": "How quickly do we reply to customer emails?",
+   "source": "customer-service.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "one business day",
+     "1 business day",
+     "one working day"
+    ]
+   ]
+  },
+  {
+   "q": "A customer complained twice about the same thing. Who handles it?",
+   "source": "customer-service.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "team lead"
+    ]
+   ]
+  },
+  {
+   "q": "How many weeks off do I get after five years?",
+   "source": "leave.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "three weeks",
+     "3 weeks"
+    ]
+   ]
+  },
+  {
+   "q": "I was ill for two days. Do I need a medical certificate?",
+   "source": "leave.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "no",
+     "not"
+    ],
+    [
+     "three",
+     "3"
+    ]
+   ]
+  },
+  {
+   "q": "What footwear is required in the warehouse?",
+   "source": "safety.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "safety boots",
+     "safety shoes",
+     "safety footwear"
+    ]
+   ]
+  },
+  {
+   "q": "Someone was almost hit by a pallet but nobody was injured. Do I report it?",
+   "source": "safety.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "yes",
+     "report"
+    ],
+    [
+     "shift lead"
+    ]
+   ]
+  },
+  {
+   "q": "Can I prop a fire door open?",
+   "source": "safety.pdf",
+   "page": 3,
+   "facts": [
+    [
+     "no",
+     "never",
+     "not"
+    ]
+   ]
+  },
+  {
+   "q": "What temperature range must refrigerated products stay in?",
+   "source": "temperature.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "2"
+    ],
+    [
+     "8"
+    ]
+   ]
+  },
+  {
+   "q": "The fridge goods were too warm on arrival. What now?",
+   "source": "temperature.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "hold",
+     "red tag"
+    ],
+    [
+     "quality team"
+    ]
+   ]
+  },
+  {
+   "q": "How do I send a pallet that weighs more than 30 kg?",
+   "source": "shipping.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "less-than-truckload",
+     "ltl",
+     "freight desk",
+     "freight"
+    ]
+   ]
+  },
+  {
+   "q": "Can we fly lithium batteries to a customer?",
+   "source": "shipping.pdf",
+   "page": 3,
+   "facts": [
+    [
+     "safety officer"
+    ]
+   ]
+  },
+  {
+   "q": "How often are the fastest-selling items counted?",
+   "source": "cycle-count.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "monthly",
+     "every month",
+     "once a month"
+    ]
+   ]
+  },
+  {
+   "q": "The count is off by eight units. What happens?",
+   "source": "cycle-count.pdf",
+   "page": 2,
+   "facts": [
+    [
+     "recount"
+    ],
+    [
+     "second person",
+     "another person",
+     "second"
+    ]
+   ]
+  },
+  {
+   "q": "What should I do with a suspicious email?",
+   "source": "it-security.pdf",
+   "page": 3,
+   "facts": [
+    [
+     "report button",
+     "report it",
+     "report"
+    ]
+   ]
+  },
+  {
+   "q": "Is two-factor login required for remote access?",
+   "source": "it-security.pdf",
+   "page": 1,
+   "facts": [
+    [
+     "yes",
+     "mandatory",
+     "required"
+    ]
+   ]
+  }
+ ],
+ "unanswerable": [
+  "How many weeks of parental leave do new parents get?",
+  "Where can employees park their cars?",
+  "On which day of the month is salary paid?",
+  "What is the overtime pay rate?",
+  "What is the Wi-Fi password for guests?",
+  "How much does the company contribute to the pension plan?",
+  "What are the cafeteria opening hours?",
+  "How do I claim travel expenses?",
+  "Is there a yearly bonus?",
+  "Can I work from home on Fridays?"
+ ]
+}

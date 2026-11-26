@@ -1,0 +1,44 @@
+{
+ "_note": "Fictional device manual of a fictional company. Built for this evaluation: near-identical pages that differ mainly in their error codes, the case where embeddings tend to blur identifiers.",
+ "documents": [
+  {
+   "source": "rf20-scanner.pdf",
+   "pages": [
+    "RF-20 handheld scanner error E-4127. RF-20 handheld scanner shows code E-4127 when the battery contacts are dirty. What to do: Wipe the contacts with a dry cloth and reseat the battery.",
+    "RF-20 handheld scanner error E-4172. RF-20 handheld scanner shows code E-4172 when the battery is below five percent. What to do: Swap in a charged battery from the charging rack.",
+    "RF-20 handheld scanner error E-4217. RF-20 handheld scanner shows code E-4217 when the laser window is scratched. What to do: Take the scanner out of service and send it to the repair desk.",
+    "RF-20 handheld scanner error E-4271. RF-20 handheld scanner shows code E-4271 when the trigger switch is stuck. What to do: Press the trigger five times firmly; if it stays stuck, replace the handle.",
+    "RF-20 handheld scanner error E-4712. RF-20 handheld scanner shows code E-4712 when the Wi-Fi certificate has expired. What to do: Dock the scanner overnight so it downloads a new certificate.",
+    "RF-20 handheld scanner error E-4721. RF-20 handheld scanner shows code E-4721 when the clock is more than five minutes off. What to do: Open Settings, then Time, and choose Sync now.",
+    "RF-20 handheld scanner error E-7124. RF-20 handheld scanner shows code E-7124 when the user is not signed in. What to do: Sign in again with your badge before scanning.",
+    "RF-20 handheld scanner error E-7142. RF-20 handheld scanner shows code E-7142 when the barcode symbology is disabled. What to do: Ask a team lead to enable the symbology in the device profile."
+   ]
+  },
+  {
+   "source": "lp9-printer.pdf",
+   "pages": [
+    "LP-9 label printer error P-301. LP-9 label printer shows code P-301 when the label roll is empty. What to do: Load a new roll with the gap sensor under the labels.",
+    "LP-9 label printer error P-310. LP-9 label printer shows code P-310 when the ribbon is wrinkled. What to do: Pull the ribbon tight and close the head until it clicks.",
+    "LP-9 label printer error P-103. LP-9 label printer shows code P-103 when the print head is too hot. What to do: Pause printing for ten minutes; do not open the head while hot.",
+    "LP-9 label printer error P-130. LP-9 label printer shows code P-130 when the gap sensor is not calibrated. What to do: Hold the feed button for three seconds to recalibrate.",
+    "LP-9 label printer error P-013. LP-9 label printer shows code P-013 when the cutter is jammed. What to do: Switch the printer off and clear the cutter with the plastic tool only.",
+    "LP-9 label printer error P-031. LP-9 label printer shows code P-031 when the label size does not match the template. What to do: Choose the 4x6 template in the shipping app.",
+    "LP-9 label printer error P-311. LP-9 label printer shows code P-311 when the printer lost its network address. What to do: Restart the printer; it will request an address again.",
+    "LP-9 label printer error P-113. LP-9 label printer shows code P-113 when the printer firmware is out of date. What to do: Report it to IT; firmware is updated only during the Sunday window."
+   ]
+  },
+  {
+   "source": "cv3-conveyor.pdf",
+   "pages": [
+    "CV-3 conveyor controller error C-0815. CV-3 conveyor controller shows code C-0815 when an emergency stop is pressed. What to do: Find the pressed e-stop, release it and press Reset.",
+    "CV-3 conveyor controller error C-0851. CV-3 conveyor controller shows code C-0851 when a photo-eye is blocked. What to do: Remove the carton or debris in front of the photo-eye.",
+    "CV-3 conveyor controller error C-0158. CV-3 conveyor controller shows code C-0158 when the motor drive is overheating. What to do: Stop the line and call maintenance; do not restart for 30 minutes.",
+    "CV-3 conveyor controller error C-0185. CV-3 conveyor controller shows code C-0185 when the belt has slipped off its track. What to do: Lock out the line before maintenance adjusts the belt tracking.",
+    "CV-3 conveyor controller error C-5081. CV-3 conveyor controller shows code C-5081 when the merge zone is full. What to do: Clear the merge zone; the line restarts by itself.",
+    "CV-3 conveyor controller error C-5018. CV-3 conveyor controller shows code C-5018 when the scanner tunnel reports a no-read. What to do: Send the carton to the exception lane for manual labelling.",
+    "CV-3 conveyor controller error C-1508. CV-3 conveyor controller shows code C-1508 when the weight check failed. What to do: Reweigh the carton at the audit station.",
+    "CV-3 conveyor controller error C-1580. CV-3 conveyor controller shows code C-1580 when the controller lost contact with the sorter. What to do: Restart the sorter gateway from the control panel."
+   ]
+  }
+ ]
+}

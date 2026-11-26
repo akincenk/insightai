@@ -25,6 +25,7 @@ def no_real_openai(monkeypatch):
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
     monkeypatch.setenv("API_KEY", "test-key")
     monkeypatch.delenv("ALLOW_NO_AUTH", raising=False)
+    monkeypatch.delenv("RERANK_URL", raising=False)
     from app import ai_engine
 
     clear_cache = ai_engine.get_client.cache_clear
