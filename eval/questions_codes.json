@@ -1,0 +1,152 @@
+[
+ {
+  "q": "What does error E-4127 mean on the RF-20?",
+  "source": "rf20-scanner.pdf",
+  "page": 1
+ },
+ {
+  "q": "What does error E-4172 mean on the RF-20?",
+  "source": "rf20-scanner.pdf",
+  "page": 2
+ },
+ {
+  "q": "What does error E-4217 mean on the RF-20?",
+  "source": "rf20-scanner.pdf",
+  "page": 3
+ },
+ {
+  "q": "What does error E-4271 mean on the RF-20?",
+  "source": "rf20-scanner.pdf",
+  "page": 4
+ },
+ {
+  "q": "What does error E-4712 mean on the RF-20?",
+  "source": "rf20-scanner.pdf",
+  "page": 5
+ },
+ {
+  "q": "What does error E-4721 mean on the RF-20?",
+  "source": "rf20-scanner.pdf",
+  "page": 6
+ },
+ {
+  "q": "What does error E-7124 mean on the RF-20?",
+  "source": "rf20-scanner.pdf",
+  "page": 7
+ },
+ {
+  "q": "What does error E-7142 mean on the RF-20?",
+  "source": "rf20-scanner.pdf",
+  "page": 8
+ },
+ {
+  "q": "What does error P-301 mean on the LP-9?",
+  "source": "lp9-printer.pdf",
+  "page": 1
+ },
+ {
+  "q": "What does error P-310 mean on the LP-9?",
+  "source": "lp9-printer.pdf",
+  "page": 2
+ },
+ {
+  "q": "What does error P-103 mean on the LP-9?",
+  "source": "lp9-printer.pdf",
+  "page": 3
+ },
+ {
+  "q": "What does error P-130 mean on the LP-9?",
+  "source": "lp9-printer.pdf",
+  "page": 4
+ },
+ {
+  "q": "What does error P-013 mean on the LP-9?",
+  "source": "lp9-printer.pdf",
+  "page": 5
+ },
+ {
+  "q": "What does error P-031 mean on the LP-9?",
+  "source": "lp9-printer.pdf",
+  "page": 6
+ },
+ {
+  "q": "What does error P-311 mean on the LP-9?",
+  "source": "lp9-printer.pdf",
+  "page": 7
+ },
+ {
+  "q": "What does error P-113 mean on the LP-9?",
+  "source": "lp9-printer.pdf",
+  "page": 8
+ },
+ {
+  "q": "What does error C-0815 mean on the CV-3?",
+  "source": "cv3-conveyor.pdf",
+  "page": 1
+ },
+ {
+  "q": "What does error C-0851 mean on the CV-3?",
+  "source": "cv3-conveyor.pdf",
+  "page": 2
+ },
+ {
+  "q": "What does error C-0158 mean on the CV-3?",
+  "source": "cv3-conveyor.pdf",
+  "page": 3
+ },
+ {
+  "q": "What does error C-0185 mean on the CV-3?",
+  "source": "cv3-conveyor.pdf",
+  "page": 4
+ },
+ {
+  "q": "What does error C-5081 mean on the CV-3?",
+  "source": "cv3-conveyor.pdf",
+  "page": 5
+ },
+ {
+  "q": "What does error C-5018 mean on the CV-3?",
+  "source": "cv3-conveyor.pdf",
+  "page": 6
+ },
+ {
+  "q": "What does error C-1508 mean on the CV-3?",
+  "source": "cv3-conveyor.pdf",
+  "page": 7
+ },
+ {
+  "q": "What does error C-1580 mean on the CV-3?",
+  "source": "cv3-conveyor.pdf",
+  "page": 8
+ },
+ {
+  "q": "My scanner battery is almost flat. What should I do?",
+  "source": "rf20-scanner.pdf",
+  "page": 2
+ },
+ {
+  "q": "The handheld's time is wrong by several minutes. How do I fix it?",
+  "source": "rf20-scanner.pdf",
+  "page": 6
+ },
+ {
+  "q": "The label printer has run out of labels.",
+  "source": "lp9-printer.pdf",
+  "page": 1
+ },
+ {
+  "q": "The printer head is very hot. Can I open it?",
+  "source": "lp9-printer.pdf",
+  "page": 3
+ },
+ {
+  "q": "Someone hit the big red stop button on the conveyor. How do I restart?",
+  "source": "cv3-conveyor.pdf",
+  "page": 1
+ },
+ {
+  "q": "The tunnel could not read a carton's barcode. Where does the carton go?",
+  "source": "cv3-conveyor.pdf",
+  "page": 6
+ }
+]

@@ -4,7 +4,7 @@ from typing import Annotated, Literal
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from pydantic import BaseModel, Field
 
-from app import ai_engine
+from app import ai_engine, reranker
 from app.auth import require_api_key
 from app.pdf_utils import InvalidPDFError, chunk_pages, extract_pages
 from app.vector_store import VectorStore
@@ -12,6 +12,7 @@ from app.vector_store import VectorStore
 MAX_UPLOAD_BYTES = int(os.getenv("MAX_UPLOAD_MB", "10")) * 1024 * 1024
 MAX_CHUNKS_PER_UPLOAD = int(os.getenv("MAX_CHUNKS_PER_UPLOAD", "200"))
 MAX_STORE_CHUNKS = int(os.getenv("MAX_STORE_CHUNKS", "2000"))
+RERANK_CANDIDATES = int(os.getenv("RERANK_CANDIDATES", "20"))
 
 router = APIRouter(dependencies=[Depends(require_api_key)])
 store = VectorStore(max_chunks=MAX_STORE_CHUNKS)
@@ -51,17 +52,27 @@ class QueryRequest(BaseModel):
     top_k: int = Field(default=3, ge=1, le=10)
     # Default chosen by measurement (eval/run.py): dense retrieval scored best on the handbook set.
     mode: Literal["hybrid", "vector", "keyword"] = "vector"
+    # None: rerank when a reranker is configured (RERANK_URL). True without one is an error, not a silent skip.
+    rerank: bool | None = None
 
 
 @router.post("/query/")
 def query_pdf(data: QueryRequest):
     if not len(store):
         raise HTTPException(400, "No documents indexed yet; upload a PDF first")
-    results = store.hybrid_search(data.query, ai_engine.embed([data.query])[0], k=data.top_k, mode=data.mode)
+    use_rerank = reranker.configured() if data.rerank is None else data.rerank
+    if use_rerank and not reranker.configured():
+        raise HTTPException(400, "Reranking was requested but no reranker is configured (RERANK_URL)")
+    k = max(RERANK_CANDIDATES, data.top_k) if use_rerank else data.top_k
+    results = store.hybrid_search(data.query, ai_engine.embed([data.query])[0], k=k, mode=data.mode)
+    reranked = False
+    if use_rerank:
+        results, reranked = reranker.rerank(data.query, results, data.top_k)
     answer = ai_engine.answer(data.query, [text for text, _, _, _ in results])
     return {
         "query": data.query,
         "mode": data.mode,
+        "reranked": reranked,
         "answer": answer,
         "results": [
             {"citation": n, "text": t, "source": s, "page": p, "score": round(score, 4)}
