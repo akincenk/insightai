@@ -38,8 +38,12 @@ def upload_pdf(file: Annotated[UploadFile, File()]):
         # Checked before embedding so an oversized document never costs an OpenAI call.
         raise HTTPException(413, f"Document has {len(chunks)} chunks; the limit is {MAX_CHUNKS_PER_UPLOAD} per upload")
     store.add(chunks, ai_engine.embed(chunks), source=file.filename, pages=[n for _, n in paged])
-    return {"filename": file.filename, "chunks": len(chunks), "pages": len(pages),
-            "words": sum(len(p.split()) for p in pages)}
+    return {
+        "filename": file.filename,
+        "chunks": len(chunks),
+        "pages": len(pages),
+        "words": sum(len(p.split()) for p in pages),
+    }
 
 
 class QueryRequest(BaseModel):
@@ -59,6 +63,8 @@ def query_pdf(data: QueryRequest):
         "query": data.query,
         "mode": data.mode,
         "answer": answer,
-        "results": [{"citation": n, "text": t, "source": s, "page": p, "score": round(score, 4)}
-                    for n, (t, s, p, score) in enumerate(results, 1)],
+        "results": [
+            {"citation": n, "text": t, "source": s, "page": p, "score": round(score, 4)}
+            for n, (t, s, p, score) in enumerate(results, 1)
+        ],
     }

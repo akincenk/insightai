@@ -39,15 +39,21 @@ def evaluate(embed, k_max: int = 10) -> dict[str, dict[str, float]]:
             hits = store.hybrid_search(q["q"], vec, k=k_max, mode=mode)
             gold = [i for i, (_, src, page, _) in enumerate(hits, 1) if (src, page) == (q["source"], q["page"])]
             ranks.append(gold[0] if gold else None)
-        report[mode] = {"recall@1": recall_at(ranks, 1), "recall@3": recall_at(ranks, 3),
-                        "recall@5": recall_at(ranks, 5), "MRR": mrr(ranks)}
+        report[mode] = {
+            "recall@1": recall_at(ranks, 1),
+            "recall@3": recall_at(ranks, 3),
+            "recall@5": recall_at(ranks, 5),
+            "MRR": mrr(ranks),
+        }
     return report
 
 
 def table(report) -> str:
     rows = ["| Mode | Recall@1 | Recall@3 | Recall@5 | MRR |", "| --- | --- | --- | --- | --- |"]
-    rows += [f"| {m} | {r['recall@1']:.2f} | {r['recall@3']:.2f} | {r['recall@5']:.2f} | {r['MRR']:.2f} |"
-             for m, r in report.items()]
+    rows += [
+        f"| {m} | {r['recall@1']:.2f} | {r['recall@3']:.2f} | {r['recall@5']:.2f} | {r['MRR']:.2f} |"
+        for m, r in report.items()
+    ]
     return "\n".join(rows)
 
 

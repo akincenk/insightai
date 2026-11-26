@@ -35,8 +35,13 @@ def bm25_rank(query: str, texts: list[str], k1: float = 1.5, b: float = 0.75) ->
     scores = []
     for i, d in enumerate(docs):
         tf = Counter(w for w in d if w in q)
-        s = sum(math.log(1 + (len(docs) - df[w] + 0.5) / (df[w] + 0.5)) * f * (k1 + 1)
-                / (f + k1 * (1 - b + b * len(d) / avg)) for w, f in tf.items())
+        s = sum(
+            math.log(1 + (len(docs) - df[w] + 0.5) / (df[w] + 0.5))
+            * f
+            * (k1 + 1)
+            / (f + k1 * (1 - b + b * len(d) / avg))
+            for w, f in tf.items()
+        )
         if s > 0:
             scores.append((s, i))
     return [i for _, i in sorted(scores, reverse=True)]
@@ -93,8 +98,9 @@ class VectorStore:
             top = np.argsort(scores)[::-1][:k]
             return [(self._texts[i], self._sources[i], float(scores[i])) for i in top]
 
-    def hybrid_search(self, query: str, query_vec: np.ndarray, k: int = 3,
-                      mode: str = "hybrid") -> list[tuple[str, str, int | None, float]]:
+    def hybrid_search(
+        self, query: str, query_vec: np.ndarray, k: int = 3, mode: str = "hybrid"
+    ) -> list[tuple[str, str, int | None, float]]:
         """(text, source, page, score) best first. mode: "hybrid" (default), "vector" or "keyword"."""
         if mode not in ("hybrid", "vector", "keyword"):
             raise ValueError("mode must be hybrid, vector or keyword")

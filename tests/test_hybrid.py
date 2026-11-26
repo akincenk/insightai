@@ -1,4 +1,3 @@
-
 from app.pdf_utils import chunk_pages
 from app.vector_store import VectorStore, bm25_rank, rrf
 from eval.metrics import mrr, recall_at
@@ -11,8 +10,11 @@ def test_chunk_pages_keeps_page_numbers_and_skips_empty_pages():
 
 
 def test_bm25_finds_exact_codes_that_embeddings_blur():
-    texts = ["fill in form RX-17 for damaged pallets", "the returns desk opens at nine",
-             "pallets are stacked by height"]
+    texts = [
+        "fill in form RX-17 for damaged pallets",
+        "the returns desk opens at nine",
+        "pallets are stacked by height",
+    ]
     assert bm25_rank("RX-17", texts)[0] == 0
 
 
