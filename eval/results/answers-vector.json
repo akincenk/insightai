@@ -2,7 +2,7 @@
  "summary": {
   "correct": "30/30",
   "cited": "30/30",
-  "citation_precision": 0.87,
+  "citation_precision": 0.923,
   "gold_page_retrieved": "30/30",
   "false_abstentions": "0/30",
   "abstained_when_unanswerable": "10/10"
@@ -10,7 +10,7 @@
  "rows": [
   {
    "q": "What is form RX-17 used for?",
-   "answer": "According to the provided documents, form RX-17 is used when the delivered quantity differs from the advance ship notice by more than two percent. In that situation, the receiver fills in form RX-17, and the supplier is charged a handling fee [1].",
+   "answer": "Form RX-17 is filled in by the receiver when the delivered quantity differs from the advance ship notice by more than two percent, and when this occurs, the supplier is charged a handling fee [1].",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -20,7 +20,7 @@
   },
   {
    "q": "What does error E-42 on a scanner mean?",
-   "answer": "According to the provided documents, if a handheld scanner shows error E-42, it means the device has lost its connection to the warehouse management system [1]. The recommended action is to dock the scanner for two minutes to resync before calling the help desk [1].",
+   "answer": "According to the provided documents, error E-42 on a handheld scanner means that the device has lost its connection to the warehouse management system [1]. The recommended action is to dock the scanner for two minutes to resync before calling the help desk [1].",
    "correct": true,
    "cited": true,
    "citations": 2,
@@ -40,7 +40,7 @@
   },
   {
    "q": "What happens to grade B electronics?",
-   "answer": "According to the provided documents, opened electronics are graded B and are sold through the outlet channel at a discount [1].",
+   "answer": "According to the documents, opened electronics that are graded B are sold through the outlet channel at a discount [1].",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -50,17 +50,17 @@
   },
   {
    "q": "Who may post an inventory adjustment?",
-   "answer": "According to the provided documents, **only the inventory controller** may post an inventory adjustment. [1] This is specified in the context of variances, where a count that differs from the system by more than five units or $100 triggers a blind recount by a second person, and the adjustment is then posted exclusively by the inventory controller. [1]",
+   "answer": "According to the documents, only the inventory controller may post an inventory adjustment [1].",
    "correct": true,
    "cited": true,
-   "citations": 2,
-   "gold_citations": 2,
+   "citations": 1,
+   "gold_citations": 1,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "What is the cut-off time for same-day shipping?",
-   "answer": "The cut-off time for same-day shipping is **2 p.m.** Orders released to the floor before 2 p.m. ship the same day, while orders released later ship the next working day. [1]",
+   "answer": "The cut-off time for same-day shipping is 2 p.m. Orders released to the floor before 2 p.m. ship the same day, while orders released later ship the next working day [1].",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -70,7 +70,7 @@
   },
   {
    "q": "How long must passwords be?",
-   "answer": "According to the provided documents, passwords must be at least 14 characters long [1].",
+   "answer": "According to the provided documents, passwords must be at least **14 characters** long [1].",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -80,17 +80,17 @@
   },
   {
    "q": "A delivery came in with fewer boxes than the supplier announced. What paperwork do I need?",
-   "answer": "When a delivery arrives with fewer boxes than the supplier announced, the following paperwork and steps apply:\n\n1. **Bill of lading and seal check:** On arrival, the driver hands over the **bill of lading**, and the receiver checks the **seal number against the advance ship notice** before the dock doors are opened. [2]\n\n2. **Counting against the purchase order:** Each pallet is scanned and counted against the **purchase order**. [1]\n\n3. **Form RX-17 (if the shortfall exceeds 2 %):** If the delivered quantity differs from the **advance ship notice** by **more than two percent**, the receiver must fill in **form RX-17**, and the supplier is charged a handling fee. [1]\n\nSo, in short, you need the bill of lading, the advance ship notice, and the purchase order for the standard check, and if the discrepancy is greater than 2 %, you additionally complete **form RX-17** [1][2]. If the shortfall is 2 % or less, the excerpts do not specify any extra form beyond the normal counting and verification process.",
+   "answer": "Based on the provided excerpts, the following paperwork applies:\n\n- **Standard receiving documents:** The driver must hand over the **bill of lading**, and you will check the seal number against the **advance ship notice** before opening the dock doors [2]. Each pallet is also scanned and counted against the **purchase order** [1].\n\n- **Discrepancy form:** If the delivered quantity differs from the advance ship notice by **more than two percent**, you must fill in **form RX-17**, and the supplier will be charged a handling fee [1].\n\nIn short, you will need the bill of lading, the advance ship notice, and the purchase order for the standard count [1][2], and if the shortfall exceeds the two-percent threshold, you must also complete form RX-17 [1]. If the difference is two percent or less, the excerpts do not specify any additional paperwork.",
    "correct": true,
    "cited": true,
-   "citations": 5,
-   "gold_citations": 3,
+   "citations": 6,
+   "gold_citations": 4,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "My handheld cannot reach the stock system. What should I do?",
-   "answer": "According to the provided documents, if your handheld scanner has lost its connection to the warehouse management system (specifically indicated by **error E-42**), you should:\n\n1. **Dock the device for two minutes** to allow it to resync with the system.\n2. If the issue persists after docking, **call the help desk** for further assistance. [1]\n\nNote: The excerpt specifically references error E-42 as the indicator of a lost connection. If your handheld is displaying a different error or no error at all, the documents do not provide additional troubleshooting steps, and you may need to contact the help desk directly.",
+   "answer": "According to the documentation, if your handheld scanner has lost its connection to the warehouse management system (indicated by error E-42), you should **dock the device for two minutes to resync it** before calling the help desk [1].\n\nIf the problem is not accompanied by error E-42, the excerpts do not provide further guidance, so you may need to contact the help desk directly.",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -100,27 +100,27 @@
   },
   {
    "q": "Can I give back a product I bought three weeks ago?",
-   "answer": "Yes, you can return the product, provided it meets the conditions. According to the returns policy, customers may return **unused items within 30 days of delivery** with the **original packaging** intact [1]. Since three weeks (21 days) falls within the 30-day window, you are within the allowed timeframe.\n\nHowever, please note the following:\n\n- The 30-day limit is measured from the **date of delivery**, not the date of purchase [1]. So as long as it has been less than 30 days since the item was delivered, you are eligible.\n- The item must be **unused** and in its **original packaging** [1].\n- You must write the **return authorisation number (starting with \"RMA\")** on the outside of the box [1].\n\nIf the item was opened or used, or if more than 30 days have passed since delivery, the standard return policy would not apply [1].",
+   "answer": "Yes, you can return a product you bought three weeks ago, as long as it meets the stated conditions. According to the return policy, customers may return unused items within 30 days of delivery, provided the original packaging is intact [1]. Since three weeks (21 days) falls within that 30-day window, you are eligible. However, you must also obtain a return authorisation number (starting with \"RMA\") and write it on the outside of the box before sending the item back [1].",
    "correct": true,
    "cited": true,
-   "citations": 5,
-   "gold_citations": 5,
+   "citations": 2,
+   "gold_citations": 2,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "What do I inspect on a lift truck before I start working?",
-   "answer": "Before the first lift of every shift, the operator must perform a pre-use check of the forklift, inspecting the following items [1]:\n\n- **Forks**\n- **Chains**\n- **Hydraulic hoses**\n- **Horn**\n- **Lights**\n- **Seat belt**\n\nAfter inspecting these items, the operator signs the daily checklist on the truck tablet [1]. If any item fails the check, the truck is taken out of service [1].\n\nAdditionally, while not part of the truck inspection itself, you are required to wear safety boots and a high-visibility vest on the warehouse floor at all times [2], and cut-resistant gloves if you will be opening cartons with a blade [2].",
+   "answer": "Before the first lift of every shift, you should inspect the following items on the forklift:\n\n- **Forks**\n- **Chains**\n- **Hydraulic hoses**\n- **Horn**\n- **Lights**\n- **Seat belt**\n\nAfter checking these items, you sign the daily checklist on the truck's tablet. If any item fails its check, the truck must be taken out of service. [1]\n\nIn addition, while not a truck inspection itself, you must wear safety boots and a high-visibility vest on the warehouse floor at all times, and cut-resistant gloves are required if you are opening cartons with a blade. [2]",
    "correct": true,
    "cited": true,
-   "citations": 5,
-   "gold_citations": 3,
+   "citations": 2,
+   "gold_citations": 1,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "Where can I plug in the electric lift trucks to recharge them?",
-   "answer": "According to the provided documents, electric trucks (lift trucks) can only be plugged in to recharge in the **ventilated charging bay** [1]. This is the sole location permitted for charging.\n\nAdditional relevant details from the same excerpt [1]:\n\n- **Opportunity charging** (topping up during breaks) is allowed, but only if the battery is above thirty percent charge.\n- **Watering the cells** is a weekly maintenance task performed by maintenance staff; operators must never do it themselves.\n\nIn short, there is no alternative location: the ventilated charging bay is the only place where an electric forklift may be connected to a charger [1].",
+   "answer": "According to the provided documents, electric trucks may only be plugged in to recharge at the **ventilated charging bay** [1]. The document states that \"Electric trucks are charged only in the ventilated charging bay,\" indicating that no other location is permitted for charging. [1]\n\nAdditionally, opportunity charging (charging during breaks) is allowed, but only when the battery level is above thirty percent. [1]",
    "correct": true,
    "cited": true,
    "citations": 3,
@@ -130,7 +130,7 @@
   },
   {
    "q": "How often does my permit to drive the lift truck need renewing?",
-   "answer": "According to the provided documents, your forklift licence expires after **three years** and must be renewed by passing a practical test with a certified trainer [1].",
+   "answer": "According to the internal licensing policy, a forklift driving licence expires after **three years** and must be renewed by passing a practical test with a certified trainer [1].",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -140,7 +140,7 @@
   },
   {
    "q": "A box arrived soaked. Where do I put it?",
-   "answer": "According to the receiving procedure for damaged goods, a wet (soaked) carton should be **photographed, set aside in the quarantine cage, and recorded as damaged on receipt** [1]. The buyer then has three working days to decide whether to return it or accept a credit [1].",
+   "answer": "A soaked (wet) carton should be **photographed, set aside in the quarantine cage, and recorded as damaged on receipt** [1]. After that, the buyer will decide within three working days whether to return it or accept a credit [1].",
    "correct": true,
    "cited": true,
    "citations": 2,
@@ -150,7 +150,7 @@
   },
   {
    "q": "Do I need an appointment before a lorry arrives at the dock?",
-   "answer": "Yes. According to the receiving procedure, every inbound truck must be booked through the dock scheduler at least 24 hours in advance of its arrival [1]. So an appointment (booking) is mandatory before a lorry reaches the dock.",
+   "answer": "Yes. According to the receiving procedure, every inbound truck must be booked through the dock scheduler at least 24 hours before arrival [1]. So an appointment (i.e., a booking) is required in advance; a lorry cannot simply show up at the dock without it.",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -160,7 +160,7 @@
   },
   {
    "q": "How quickly do we reply to customer emails?",
-   "answer": "Customer emails are answered within one business day [1].",
+   "answer": "Customer emails are answered within one business day. [1]",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -170,27 +170,27 @@
   },
   {
    "q": "A customer complained twice about the same thing. Who handles it?",
-   "answer": "When a customer reports the same problem a second time, the case is escalated to a **team lead**, who owns it until the customer confirms it is solved [1]. Additionally, the complaint itself is acknowledged the same day it is received [2].",
+   "answer": "When a customer reports the same problem a second time, the case is escalated to a **team lead**, who owns it until the customer confirms it is solved. [1]",
    "correct": true,
    "cited": true,
-   "citations": 2,
+   "citations": 1,
    "gold_citations": 1,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "How many weeks off do I get after five years?",
-   "answer": "According to the document, full-time staff earn **three weeks** of paid vacation from the fifth year onward [1]. In the first year, the amount is two weeks, but it increases to three weeks starting in the fifth year [1].",
+   "answer": "According to the vacation policy, full-time staff earn **three weeks** of paid vacation starting from the fifth year of employment [1].",
    "correct": true,
    "cited": true,
-   "citations": 2,
-   "gold_citations": 2,
+   "citations": 1,
+   "gold_citations": 1,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "I was ill for two days. Do I need a medical certificate?",
-   "answer": "No, you do not need a medical certificate for two sick days. According to the sick days policy, a doctor's note is only required after **three consecutive** sick days [1]. Since you were ill for only two days, you fall below that threshold and are not required to provide one.\n\nYou should, however, make sure you phoned your shift lead before the start of each shift to notify them of your absence [1].",
+   "answer": "No, you do not need a medical certificate. According to the sick days policy, a doctor's note is only required after **three consecutive sick days** [1]. Since you were ill for only two days, you are below that threshold and no certificate is needed. You simply needed to phone your shift lead before the start of the shift [1].",
    "correct": true,
    "cited": true,
    "citations": 2,
@@ -200,17 +200,17 @@
   },
   {
    "q": "What footwear is required in the warehouse?",
-   "answer": "According to the provided documents, **safety boots** are required on the warehouse floor at all times [1]. This is part of the personal protective equipment policy, which also mandates high-visibility vests and cut-resistant gloves (when opening cartons with a blade) [1].",
+   "answer": "According to the provided documents, **safety boots** are required on the warehouse floor at all times [1].",
    "correct": true,
    "cited": true,
-   "citations": 2,
-   "gold_citations": 2,
+   "citations": 1,
+   "gold_citations": 1,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "Someone was almost hit by a pallet but nobody was injured. Do I report it?",
-   "answer": "Yes, you must report it. According to the policy on incidents and near misses, **every** incident or near miss must be reported to the shift lead before the end of the shift, **even when nobody is hurt** [2]. So the fact that no one was injured does not exempt you from reporting. The report will then be reviewed every week to help remove the underlying cause [2].",
+   "answer": "Yes, you must report it. According to the procedure, every incident or near miss is reported to the shift lead before the end of the shift, **even when nobody is hurt** [2]. So in your case—where someone was almost hit by a pallet but no one was injured—you still need to report it to your shift lead before the shift ends. Those reports are then reviewed every week to help remove the cause [2].",
    "correct": true,
    "cited": true,
    "citations": 2,
@@ -220,7 +220,7 @@
   },
   {
    "q": "Can I prop a fire door open?",
-   "answer": "No, you cannot prop a fire door open. According to the safety guidelines, \"Fire doors are never wedged open.\" [1] This is a strict prohibition with no exceptions mentioned.",
+   "answer": "No. According to the safety guidelines, fire doors are **never** wedged open [1]. Propping a fire door open would violate this rule.",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -230,27 +230,27 @@
   },
   {
    "q": "What temperature range must refrigerated products stay in?",
-   "answer": "According to the provided documents, **chilled goods** must stay between **2 and 8 degrees Celsius** from the trailer to the cold room [1]. The probe reading is taken at receipt and logged against the purchase order [1].\n\nNote: The document specifically refers to \"chilled goods\" rather than \"refrigerated products,\" but this is the only temperature range mentioned in the excerpts [1].",
+   "answer": "Refrigerated (chilled) products must stay between 2 and 8 degrees Celsius, from the trailer to the cold room [1].",
    "correct": true,
    "cited": true,
-   "citations": 3,
-   "gold_citations": 3,
+   "citations": 1,
+   "gold_citations": 1,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "The fridge goods were too warm on arrival. What now?",
-   "answer": "If the chilled (fridge) goods arrive too warm, the following applies:\n\n1. **Cold-chain check at receipt** – Chilled goods must stay between **2 °C and 8 °C** from the trailer to the cold room, and the probe reading is taken at receipt and logged against the purchase order [1].\n\n2. **Excursion procedure** – Because a temperature outside that 2–8 °C window counts as an *excursion*, the pallet is **placed on hold with a red tag**, and the **quality team must decide within four hours** whether the pallet can be released [3].\n\nIn short: log the out-of-range probe reading, put the pallet on hold with a red tag, and wait for the quality team's four-hour decision on release [1][3].",
+   "answer": "If the chilled goods arrived too warm, meaning the probe reading was outside the required 2–8 °C range [1], the following procedure applies:\n\n1. **Place the pallet on hold with a red tag.** [3]\n2. **The quality team decides within four hours whether the pallet can be released.** [3]\n\nIn short, the pallet is not simply accepted or rejected by the receiving team; it is quarantined with a red tag and the decision is escalated to the quality team, who must act within a four-hour window [3].",
    "correct": true,
    "cited": true,
    "citations": 4,
-   "gold_citations": 2,
+   "gold_citations": 3,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "How do I send a pallet that weighs more than 30 kg?",
-   "answer": "To send a pallet that weighs more than 30 kg, you should book it as **less-than-truckload (LTL) freight** through the **freight desk**. When doing so, you must provide the **pallet dimensions and weight** to the freight desk. [1]\n\nThis is in contrast to shipments under 30 kg, which are handled by the parcel carrier. [1]",
+   "answer": "For a pallet weighing more than 30 kg, you should book it as **less-than-truckload freight through the freight desk**. When making the booking, the freight desk will require the **pallet dimensions and weight** [1].\n\nThis is in contrast to parcels under 30 kilograms, which are sent via the parcel carrier [1].",
    "correct": true,
    "cited": true,
    "citations": 2,
@@ -260,7 +260,7 @@
   },
   {
    "q": "Can we fly lithium batteries to a customer?",
-   "answer": "Based on the provided documents, lithium batteries **cannot simply be flown to a customer without additional requirements**. According to the hazardous materials policy, lithium batteries may **never go by air without the safety officer's approval** [1]. In addition, they ship only with a **dangerous-goods declaration signed by a certified shipper** [1].\n\nSo, to answer directly: you cannot fly lithium batteries to a customer unless you first obtain the safety officer's approval and have a dangerous-goods declaration signed by a certified shipper. Without both of those conditions met, air shipment is prohibited [1].",
+   "answer": "Based on the provided documents, lithium batteries **may never go by air without the safety officer's approval** [1]. In addition, they ship only with a dangerous-goods declaration signed by a certified shipper [1].\n\nSo the short answer is: not freely. Flying lithium batteries to a customer is not permitted unless the safety officer has granted approval, and a proper dangerous-goods declaration from a certified shipper must accompany the shipment [1].",
    "correct": true,
    "cited": true,
    "citations": 3,
@@ -270,7 +270,7 @@
   },
   {
    "q": "How often are the fastest-selling items counted?",
-   "answer": "According to the document, the fastest-selling items (referred to as \"Fast-moving A items\") are counted **monthly** [1].",
+   "answer": "According to the documents, fast-moving A items (the fastest-selling items) are counted **monthly** [1].",
    "correct": true,
    "cited": true,
    "citations": 1,
@@ -280,27 +280,27 @@
   },
   {
    "q": "The count is off by eight units. What happens?",
-   "answer": "When a count differs from the system by eight units, this exceeds the five-unit threshold described in the variance procedure [2]. As a result, a **blind recount by a second person** is triggered, and **only the inventory controller may post the adjustment** [2].\n\n(Note: Excerpt [1] addresses a different scenario—delivery quantity differing from an advance ship notice by more than two percent—which would require form RX-17 and a handling fee charged to the supplier [1]. The eight-unit count discrepancy falls under the variance rule in [2].)",
+   "answer": "When a count differs from the system by eight units, this exceeds the five-unit threshold, which triggers a **blind recount by a second person**, and **only the inventory controller may post the adjustment** [2].",
    "correct": true,
    "cited": true,
-   "citations": 5,
-   "gold_citations": 3,
+   "citations": 1,
+   "gold_citations": 1,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "What should I do with a suspicious email?",
-   "answer": "According to the provided documents, if you receive a suspicious email (i.e., a potential phishing message), you should:\n\n1. **Report it using the report button** – do not open attachments or click links in the message. [1]\n2. **Never forward the email** to anyone. [1]\n3. **Expect a response** – the security team will answer your report within one working day. [1]\n\nIn short: use the report button, do not forward the message, and the security team will follow up within one working day [1].",
+   "answer": "According to the provided documents, if you receive a suspicious email, you should report it using the **report button** and **never forward** it [1]. After you report it, the security team will respond to your report within one working day [1].",
    "correct": true,
    "cited": true,
-   "citations": 4,
-   "gold_citations": 4,
+   "citations": 2,
+   "gold_citations": 2,
    "retrieved_gold": true,
    "abstained": false
   },
   {
    "q": "Is two-factor login required for remote access?",
-   "answer": "The documents do not specifically mention \"two-factor login.\" However, excerpt [1] states that **multi-factor authentication is mandatory for remote access** [1]. \"Multi-factor\" means two or more factors of authentication, so two-factor would satisfy that requirement, but the policy does not specify a minimum of exactly two factors—it requires multi-factor authentication (which could be two, three, or more factors). The document does not use the term \"two-factor\" explicitly [1].",
+   "answer": "The documents do not specifically mention \"two-factor login.\" However, excerpt [1] states that **multi-factor authentication is mandatory for remote access** [1]. \"Multi-factor\" means two or more verification factors, which would encompass two-factor authentication, but the document does not use the specific term \"two-factor.\" It requires multi-factor authentication as the standard for remote access. [1]",
    "correct": true,
    "cited": true,
    "citations": 3,
@@ -310,61 +310,61 @@
   },
   {
    "q": "How many weeks of parental leave do new parents get?",
-   "answer": "I could not find the answer to your question in the provided document excerpts. The excerpts cover vacation policies [1], sick days [2], and receiving/counting procedures [3], but none of them mention parental leave.",
+   "answer": "I could not find the answer to this question in the provided documents. The excerpts discuss vacation [1], sick days [2], and receiving discrepancies [3], but none of them mention parental leave for new parents.",
    "abstained": true,
    "citations": 3
   },
   {
    "q": "Where can employees park their cars?",
-   "answer": "I could not find the answer to this question in the provided document excerpts. The excerpts cover topics such as electric truck battery charging [1], forklift driver licences [2], and emergency exit routes [3], but none of them contain information about where employees can park their cars.",
+   "answer": "I could not find the answer in the documents. The provided excerpts cover battery charging for electric trucks [1], forklift licences [2], and emergency exits [3], but none of them contain information about where employees can park their cars.",
    "abstained": true,
    "citations": 3
   },
   {
    "q": "On which day of the month is salary paid?",
-   "answer": "I could not find the answer to this question in the provided documents. The excerpts cover vacation policies [1], receiving procedures [2], and order cut-off/shipping times [3], but none of them mention a salary or payroll payment schedule.",
+   "answer": "I could not find the answer to this question in the provided documents. The excerpts cover vacation policy [1], the receiving procedure for inbound trucks [2], and order cut-off/shipping times [3], but none of them mention when salary is paid.",
    "abstained": true,
    "citations": 3
   },
   {
    "q": "What is the overtime pay rate?",
-   "answer": "I could not find information about the overtime pay rate in the provided document excerpts. The excerpts cover vacation policies [1], sick day procedures [2], and counting/discrepancy handling for received shipments [3], but none of them address overtime pay.",
+   "answer": "I could not find the overtime pay rate in the provided documents. The excerpts cover vacation policies [1], sick days [2], and counting/discrepancy procedures for receiving [3], but none of them mention overtime pay.",
    "abstained": true,
    "citations": 3
   },
   {
    "q": "What is the Wi-Fi password for guests?",
-   "answer": "I could not find the Wi-Fi password for guests in the provided documents. The excerpts do not mention a guest Wi-Fi password. Notably, excerpt [1] states that passwords \"are never shared,\" indicating that such credentials would not be distributed through these materials.",
+   "answer": "I could not find the Wi-Fi password for guests in the provided documents. The excerpts cover password policies for email, the warehouse management system, and remote access [1], emergency exit procedures [2], and handheld scanner troubleshooting [3], but none of them mention a guest Wi-Fi password.",
    "abstained": true,
-   "citations": 1
+   "citations": 3
   },
   {
    "q": "How much does the company contribute to the pension plan?",
-   "answer": "I could not find the answer in the documents. The provided excerpts cover receiving discrepancies [1], carrier/shipping rules [2], and vacation policy [3], but none of them mention a pension plan or any company contribution to one.",
+   "answer": "I could not find the answer in the documents. The provided excerpts cover counting/discrepancy procedures [1], carrier selection for shipments [2], and vacation entitlements [3], but none of them mention a pension plan or the company's contribution to one.",
    "abstained": true,
    "citations": 3
   },
   {
    "q": "What are the cafeteria opening hours?",
-   "answer": "I could not find the cafeteria opening hours in the provided document excerpts. The excerpts cover emergency exits [1], customer service levels [2], and cycle counting procedures [3], but none of them mention a cafeteria or its specific operating hours.",
+   "answer": "I could not find the answer in the documents. The provided excerpts discuss emergency exits [1], service-level targets for customer communications [2], and cycle counting procedures [3], but none of them mention a cafeteria or its opening hours.",
    "abstained": true,
    "citations": 3
   },
   {
    "q": "How do I claim travel expenses?",
-   "answer": "I could not find any information about claiming travel expenses in the provided document excerpts. The documents cover topics related to receiving inbound truck shipments, counting and handling quantity discrepancies, and processing damaged goods, but none of them address travel expense claims.",
+   "answer": "I could not find it in the documents. The provided excerpts cover only receiving procedures (booking trucks, seal checks), counting and discrepancy handling, and damaged goods processing. None of them contain any information about claiming travel expenses.",
    "abstained": true,
    "citations": 0
   },
   {
    "q": "Is there a yearly bonus?",
-   "answer": "I could not find information about a yearly bonus in the provided document excerpts. The excerpts cover vacation [1], forklift licences [2], and sick days [3], but none of them mention a yearly bonus or any similar annual payment.",
+   "answer": "I could not find it in the documents. The provided excerpts cover vacation [1], forklift licences [2], and sick days [3], but none of them mention a yearly bonus.",
    "abstained": true,
    "citations": 3
   },
   {
    "q": "Can I work from home on Fridays?",
-   "answer": "I could not find the answer to your question in the provided documents. The excerpts cover order cut-off and shipping times [1], vacation accrual and request procedures [2], and sick day notification policies [3], but none of them mention any policy regarding working from home or remote work on Fridays.",
+   "answer": "I could not find it in the documents. The provided excerpts cover order shipping times [1], vacation accrual and request procedures [2], and sick day notification policies [3], but none of them address a work-from-home or remote work policy, including any specific rule about Fridays.",
    "abstained": true,
    "citations": 3
   }

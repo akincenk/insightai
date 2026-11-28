@@ -214,3 +214,17 @@ Three further questions, all measured locally with EmbeddingGemma 2, the `bge-re
 - Reranking cost one answer, the same fridge question: with the right page gone, the model correctly said it could not find the answer. A wrong retrieval became an honest "I don't know", not a wrong answer.
 - Grading is lexical (every fact group must appear), so it is lenient where the fact is a plain yes or no; I read those answers by hand. Every answer is in [`eval/results/`](eval/results/).
 
+### Stricter citations (2026-11-27)
+
+On 2026-11-26 the answers cited the right page 87% of the time; the off-page citations were related excerpts (the page before, a neighbouring topic) and side notes such as "excerpt [1] is about something else". The prompt now adds one rule: *cite only the excerpt that states the claim, not one that is merely related, and do not mention excerpts you did not use.* Same models, same 40 questions, three runs each because the model's output varies between runs:
+
+| Prompt | Citation precision, 3 runs | Correct | Unanswerable: said "could not find" | False "could not find" |
+| --- | --- | --- | --- | --- |
+| before (2026-11-26 rule) | 0.852, 0.870, 0.902 | 30 / 30 in the last two (29 / 30 in the first) | 10 / 10 | 0 / 30 in the last two |
+| **strict citations** | **0.923, 0.946, 0.918** | **30 / 30** each | **10 / 10** each | **0 / 30** each |
+
+- The worst strict run is above the best run of the old rule. Answers carry fewer citations (49 to 56 across the 30 answers instead of 61) and none of the other numbers moved.
+- What is left is mostly honest context: for the fridge question the answer cites the 2 to 8 °C range on the page before the excursion procedure, which is the right excerpt for that sentence but not the gold page.
+- [`eval/results/answers-vector.json`](eval/results/answers-vector.json) is the middle run (0.923). The rerank row above was measured with the old rule and was not re-run.
+- Guard: `tests/test_api.py::test_answer_prompt_asks_for_strict_citations` fails if the rule leaves the prompt.
+

@@ -150,3 +150,14 @@ def test_query_cites_page_numbers_and_accepts_mode(mocked_openai):
     kw = client.post("/query/", json={"query": "coffee", "top_k": 1, "mode": "keyword"}).json()
     assert kw["results"][0]["page"] == 1
     assert client.post("/query/", json={"query": "x", "mode": "fuzzy"}).status_code == 422
+
+
+def test_answer_prompt_asks_for_strict_citations(monkeypatch):
+    # guard for the 2026-11-27 citation-precision gain (README): keep the strict citation rule in the prompt
+    sent = {}
+    reply = SimpleNamespace(output_text="")
+    fake = SimpleNamespace(responses=SimpleNamespace(create=lambda **kw: sent.update(kw) or reply))
+    monkeypatch.setattr(ai_engine, "get_client", lambda: fake)
+    ai_engine.answer("q?", ["ctx"])
+    assert "Cite only the excerpt that states the claim" in sent["instructions"]
+    assert "could not find it in the documents" in sent["instructions"]
